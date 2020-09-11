@@ -1,0 +1,52 @@
+import React, { useState } from "react";
+import * as tf from "@tensorflow/tfjs";
+import * as posenet from '@tensorflow-models/posenet';
+import { fetch } from '@tensorflow/tfjs-react-native'
+import { StyleSheet, Text, View, Image, Button } from "react-native";
+
+export default function App() {
+  const [display, setDisplay] = useState("loading");
+  const [imageUri, setUri] = useState('https://www.seekpng.com/png/detail/378-3780801_david-murray-news-person-full-body-png.png');
+
+
+  let classifyImage = async () => {
+    setDisplay("Loading Tensorflow")
+    await tf.ready()
+
+    const imageScaleFactor = 0.50;
+    const flipHorizontal = false;
+    const outputStride = 16;
+
+    setDisplay("Loading Model");
+    const net = await posenet.load();
+    const response = await fetch(imageUri, {}, {isBinary: true})
+    const imageData = await response.arrayBuffer()
+
+    //transforming image byte array into form to input into model
+
+  };
+
+  function imageToTensor(rawData: any) {
+
+  }
+
+
+  return (
+    <View style={styles.container}>
+      <Image
+        style={{ width: 200, height: 200 }}
+        source={{uri: imageUri}}
+      ></Image>
+      <Button title="classify image" onPress={() => classifyImage()}></Button>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});

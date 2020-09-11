@@ -23,9 +23,9 @@ export default function App() {
       (async () => {
 
         //check permissions
-        let { status } = await Camera.requestPermissionsAsync();
+        /* let { status } = await Camera.requestPermissionsAsync();
         console.log(`permissions status: ${status}`);
-        setHasPermission(status === "granted");
+        setHasPermission(status === "granted"); */
 
 
         //wait for tensorflow to be ready
@@ -33,7 +33,7 @@ export default function App() {
 
 
         //load the model 
-        setPoseNet(await posenet.load());
+        //setPoseNet(await posenet.load());
 
 
         setTfReady(true);
@@ -41,12 +41,11 @@ export default function App() {
     }
   }, []);
 
-  async function estimatePoseOnImage(imageElement: any) {
+/*   async function estimatePoseOnImage(imageElement: any) {
     if (poseNet){
       const pose = await poseNet.estimateSinglePose(imageElement, {
       flipHorizontal: false,
       });
-      console.log(`pose detected: ${pose}`)
       setPoseDetection(pose);
       return pose;
     } else {
@@ -61,11 +60,12 @@ export default function App() {
       requestAnimationFrame(loop);
     };
     loop();
-  }
+  } */
 
     return (
       <View>
-        <TensorCamera
+        <Text>tfjs ready?: {tfReady}</Text>
+        {/* <TensorCamera
           type={Camera.Constants.Type.front}
           style={styles.camera}
           onReady={handleCameraStream}
@@ -76,7 +76,7 @@ export default function App() {
           resizeHeight={200}
           resizeWidth={152}
           resizeDepth={3}
-        />
+        /> */}
       </View>
     );
   }
